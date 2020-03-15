@@ -10,22 +10,14 @@ import UIKit
 import Firebase
 
 class RegisterViewController: UIViewController {
+    
+    var viewModel: RegisterViewModel!
 
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     
     @IBAction func registerPressed(_ sender: UIButton) {
-        guard
-            let email = emailTextfield.text,
-            let password = passwordTextfield.text
-        else { return }
+        viewModel.register(email: emailTextfield.text, pass: passwordTextfield.text)
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                self.show(error)
-            } else {
-                self.performSegue(withIdentifier: K.registerSegue, sender: self)
-            }
-        }
     }
 }
